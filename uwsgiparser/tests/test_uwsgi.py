@@ -14,7 +14,8 @@ class TestUwsgi(unittest.TestCase):
             "ENTRY": """[pid: 16992|app: 0|req: 1/1] 127.0.0.1 () {44 vars
                         in 833 bytes} [Mon Nov 21 17:50:21 2016] GET /admin
                         => generated 23614 bytes in 993 msecs (HTTP/1.1 404)
-                        3 headers in 94 bytes (1 switches on core 0)"""
+                        3 headers in 94 bytes (1 switches on core 0)""",
+            "UNKNOWN": """alskdjfalksj"""
         }
 
         self.LOG_FILE = open('data/logfile.log', 'r')
@@ -31,4 +32,5 @@ class TestUwsgi(unittest.TestCase):
         for k in self.TEST_LOGS.keys():
             line = self.TEST_LOGS[k]
             self.assertEqual(k, UwsgiLogEntry(line).type)
+
 
