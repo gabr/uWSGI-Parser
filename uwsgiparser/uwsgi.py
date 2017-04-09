@@ -10,9 +10,13 @@ def getNextLogEntry(logFile):
 
 
 class UwsgiLogEntry():
-    def __parse(self, line):
+    """
+    Represents single uWSGI log entry.
+    """
+
+    def __parse(self, log):
         p = re.compile("^\[(.+?)\]", re.IGNORECASE)
-        m = p.match(line)
+        m = p.match(log)
 
         if m is None:
             self.type = "UNKNOWN"
@@ -23,8 +27,8 @@ class UwsgiLogEntry():
             else:
                 self.type = "ENTRY"
 
-    def __init__(self, line):
-        self.line = line
+    def __init__(self, log):
+        self.log = log
         self.ENTRIES = [
             "UNKNOWN",
             "INFO",
@@ -33,5 +37,5 @@ class UwsgiLogEntry():
             "ENTRY"
         ]
 
-        self.__parse(line)
+        self.__parse(log)
 

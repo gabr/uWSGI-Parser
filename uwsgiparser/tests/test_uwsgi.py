@@ -23,10 +23,10 @@ class TestUwsgi(unittest.TestCase):
     def tearDown(self):
         self.LOG_FILE.close()
 
-    def test_has_given_log_line(self):
+    def test_has_given_log(self):
         for k in self.TEST_LOGS.keys():
             line = self.TEST_LOGS[k]
-            self.assertEqual(line, UwsgiLogEntry(line).line)
+            self.assertEqual(line, UwsgiLogEntry(line).log)
 
     def test_has_correct_entry_type(self):
         for k in self.TEST_LOGS.keys():
