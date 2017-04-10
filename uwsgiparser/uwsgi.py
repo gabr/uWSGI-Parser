@@ -8,8 +8,6 @@ def getNextLogEntry(logFile):
     """
     pass
 
-# exmaple entry:
-# [pid: 16992|app: 0|req: 1/1] 127.0.0.1 () {44 vars in 833 bytes} [Mon Nov 21 17:50:21 2016] GET /admin => generated 23614 bytes in 993 msecs (HTTP/1.1 404) 3 headers in 94 bytes (1 switches on core 0)
 
 class UwsgiLogEntry():
     """
@@ -63,10 +61,17 @@ class UwsgiLogEntry():
         ]
 
         self.type = self.__resolveEntryType(log)
-        ipaddr, dt, bc, rc = self.__extractEntryData(log)
 
-        self.ip_address = ipaddr
-        self.date_time = dt
-        self.bytes_count = bc
-        self.response_code = rc
+        if self.type == "ENTRY":
+            ipaddr, dt, bc, rc = self.__extractEntryData(log)
+
+            self.ip_address = ipaddr
+            self.date_time = dt
+            self.bytes_count = bc
+            self.response_code = rc
+        else:
+            self.ip_address = ""
+            self.date_time = None
+            self.bytes_count = 0
+            self.response_code = ""
 
