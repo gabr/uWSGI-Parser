@@ -15,17 +15,23 @@ class UwsgiLogEntry():
     """
 
     def __extractEntryData(self, log):
+        """
+        Extracts and returns entry details as a tuple:
+        (ip address, date and time, bytes count and response code)
+        """
         p = re.compile(
           "^.+?\] (.+?) .+? \[(.+?)\] .+? (\d+) bytes .+? \(HTTP.+? (\d+)\)",
           re.IGNORECASE)
         m = p.match(log)
 
+        # default values returned in case of error
         ip_address = ""
         date_time = None
         bytes_count = 0
         response_code = ""
 
         try:
+            # if match succeeded parse extracted values
             if m is not None:
                 g = m.groups()
                 ip_address = g[0]
@@ -36,6 +42,9 @@ class UwsgiLogEntry():
             return (ip_address, date_time, bytes_count, response_code)
 
     def __resolveEntryType(self, log):
+        """
+        Determines gven log type.
+        """
         p = re.compile("^\[(.+?)\]", re.IGNORECASE)
         m = p.match(log)
 
