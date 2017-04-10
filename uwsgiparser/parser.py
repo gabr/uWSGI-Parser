@@ -3,12 +3,15 @@ import os.path
 from datetime import datetime
 from uwsgi import getNextLogEntry, UwsgiLogEntry
 
+def getStatistics(logPath, startTime, endTime):
+    return (0, 0, (), 0.0)
+
 def parseTime(timeString):
     try:
         startTime = datetime.strptime(timeString, "%d-%m-%Y_%H-%M-%S")
         return startTime
     except Exception:
-        print("ERROR: Given date time format is invalid: %s" % (timeString))
+        print("ERROR: Given date time format is invalid: {0}".format(timeString))
         return None
 
 def main():
@@ -25,7 +28,7 @@ def main():
     args = parser.parse_args()
 
     if not os.path.isfile(args.logPath):
-        print("ERROR: Given file not found: %s" % (args.logPath))
+        print("ERROR: Given file not found: {0}".format(args.logPath))
         return
 
     startTime = None
@@ -39,6 +42,12 @@ def main():
         endTime = parseTime(args.endTime)
         if endTime is None:
             return
+
+    count, avr, codes, size = getStatistics(args.logPath, startTime, endTime)
+    print("Zapytan: {0}".format(count))
+    print("Zapytania/sec: {0}".format(avr))
+    print("Odpowiedzi {0}".format(codes))
+    print("Sredni rozmiar zapytan z kodem 2xx: {0} Mb".format(size))
 
 
 if __name__ == "__main__":
