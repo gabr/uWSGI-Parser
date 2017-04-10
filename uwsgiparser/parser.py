@@ -34,7 +34,7 @@ def getStatistics(logPath, startTime, endTime):
                     firstEntry = logEntry
                 lastEntry = logEntry
 
-                if not response_codes.has_key(logEntry.response_code):
+                if logEntry.response_code not in response_codes.keys():
                     response_codes[logEntry.response_code] = 0
                 response_codes[logEntry.response_code] += 1
 
