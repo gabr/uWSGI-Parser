@@ -40,12 +40,13 @@ def getStatistics(logPath, startTime, endTime):
 
         if (firstEntry is not None and lastEntry is not None):
             seconds = (lastEntry.date_time - firstEntry.date_time).seconds
+            seconds = seconds if seconds != 0 else 1
     finally:
         logFile.close()
         return (count,
                 float(count)/float(seconds),
                 response_codes,
-                size_200/count_200/1024.0 if count != 0 else 0)
+                size_200/count_200/1024.0 if count_200 != 0 else 0)
 
 def parseTime(timeString):
     try:
