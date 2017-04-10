@@ -12,6 +12,12 @@ def getNextLogEntry(logFile):
 class UwsgiLogEntry():
     """
     Represents single uWSGI log entry.
+    Has following properties:
+        - type
+        - ip_address
+        - date_time
+        - bytes_count
+        - response_code
     """
 
     def __extractEntryData(self, log):
