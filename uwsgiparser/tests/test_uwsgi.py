@@ -62,4 +62,16 @@ class TestUwsgi(unittest.TestCase):
             "404",
             UwsgiLogEntry(self.TEST_LOGS["ENTRY"]).response_code)
 
+    def test_returns_next_log_entries_from_file(self):
+        self.assertEqual("DEBUG", getNextLogEntry(self.LOG_FILE).type)
+        self.assertEqual("INFO", getNextLogEntry(self.LOG_FILE).type)
+        self.assertEqual("ENTRY", getNextLogEntry(self.LOG_FILE).type)
+
+        entry = getNextLogEntry(self.LOG_FILE)
+        self.assertEqual("ENTRY", entry.type)
+        self.assertEqual("127.0.0.1", entry.ip_address)
+        self.assertEqual(datetime(2016, 11, 21, 17, 50, 25), entry.date_time)
+        self.assertEqual(23650 , entry.bytes_count)
+        self.assertEqual("404", entry.response_code)
+
 

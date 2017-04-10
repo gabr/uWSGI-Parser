@@ -5,8 +5,17 @@ def getNextLogEntry(logFile):
     """
     Searches through opened file for uWSGI log entry.
     Returns UwsgiLogEtnry object representation if found next log entry.
+    If log entry not found returns None.
     """
-    pass
+    if logFile is None or logFile.closed:
+        return None
+
+    for line in logFile:
+        entry = UwsgiLogEntry(line)
+        if entry.type is not "UNKNOWN":
+            return entry
+
+    return None
 
 
 class UwsgiLogEntry():
