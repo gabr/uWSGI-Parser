@@ -15,7 +15,7 @@ Python 3.5 script for uWSGI logs paring.
       --from STARTTIME  start time, e.g 20-11-2016_11-23-11
       --to ENDTIME      end time, e.g 20-11-2016_11-23-11
 
-## Example usage and calculated statistics:
+## Example usage and calculated statistics
 
     $ python .\parser.py ..\data\logfile.log --from 21-11-2014_17-50-20
     Zapytan: 173
