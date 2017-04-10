@@ -4,7 +4,48 @@ from datetime import datetime
 from uwsgi import getNextLogEntry, UwsgiLogEntry
 
 def getStatistics(logPath, startTime, endTime):
-    return (0, 0, (), 0.0)
+    try:
+        logFile = open(logPath, 'r')
+        count = 0
+        firstEntry = None
+        lastEntry = None
+        seconds = 1
+        response_codes = {}
+
+        count_200 = 0
+        size_200 = 0.0
+
+        logEntry = getNextLogEntry(logFile)
+        while logEntry is not None:
+            if (logEntry.type == "ENTRY" and
+                (startTime is None or logEntry.date_time >= startTime) and
+                (endTime is None or logEntry.date_time <= endTime)):
+
+                if firstEntry is None:
+                    firstEntry = logEntry
+                lastEntry = logEntry
+
+                if not response_codes.has_key(logEntry.response_code):
+                    response_codes[logEntry.response_code] = 0
+                response_codes[logEntry.response_code] += 1
+
+                count += 1
+
+                if (logEntry.response_code >= 200 and
+                    logEntry.response_code < 300):
+                    count_200 += 1
+                    size_200 += logEntry.bytes_count
+
+            logEntry = getNextLogEntry(logFile)
+
+        if (firstEntry is not None and lastEntry is not None):
+            seconds = (lastEntry.date_time - firstEntry.date_time).seconds
+    finally:
+        logFile.close()
+        return (count,
+                float(count)/float(seconds),
+                response_codes,
+                size_200/count_200/1024.0 if count != 0 else 0)
 
 def parseTime(timeString):
     try:
@@ -45,9 +86,9 @@ def main():
 
     count, avr, codes, size = getStatistics(args.logPath, startTime, endTime)
     print("Zapytan: {0}".format(count))
-    print("Zapytania/sec: {0}".format(avr))
-    print("Odpowiedzi {0}".format(codes))
-    print("Sredni rozmiar zapytan z kodem 2xx: {0} Mb".format(size))
+    print("Zapytania/sec: {0:.1f}".format(avr))
+    print("Odpowiedzi {0}".format(codes).replace("{", "(").replace("}", ")"))
+    print("Sredni rozmiar zapytan z kodem 2xx: {0:.2f} Mb".format(size))
 
 
 if __name__ == "__main__":

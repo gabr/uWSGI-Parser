@@ -52,7 +52,7 @@ class UwsgiLogEntry():
                 ip_address = g[0]
                 date_time = datetime.strptime(g[1], "%a %b %d %H:%M:%S %Y")
                 bytes_count = int(g[2])
-                response_code = g[3]
+                response_code = int(g[3])
         finally:
             return (ip_address, date_time, bytes_count, response_code)
 
