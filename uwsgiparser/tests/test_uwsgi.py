@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime
 from uwsgiparser.uwsgi import getNextLogEntry, UwsgiLogEntry
 
 
@@ -46,8 +47,9 @@ class TestUwsgi(unittest.TestCase):
             UwsgiLogEntry(self.TEST_LOGS["ENTRY"]).ip_address)
 
     def test_extracts_date_time(self):
+        # Mon Nov 21 17:50:21 2016
         self.assertEqual(
-            "Mon Nov 21 17:50:21 2016",
+            datetime(2016, 11, 21, 17, 50, 21),
             UwsgiLogEntry(self.TEST_LOGS["ENTRY"]).date_time)
 
     def test_extracts_bytes_count(self):
