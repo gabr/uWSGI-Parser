@@ -1,0 +1,36 @@
+Total: 02:22:00
+
+Tue Apr 11 00:04:12 2017 +0200 python 3.5 dictionary fix and run script
+Mon Apr 10 23:55:36 2017 +0200 typo
+Mon Apr 10 23:53:57 2017 +0200 adds README content
+Mon Apr 10 23:49:43 2017 +0200 additional comments
+Mon Apr 10 23:44:36 2017 +0200 dividing by zero fixes
+Mon Apr 10 23:40:55 2017 +0200 calculating statistics
+Mon Apr 10 23:10:27 2017 +0200 formating output
+Mon Apr 10 23:00:40 2017 +0200 parsing time arguments and checking file existence
+Mon Apr 10 22:47:27 2017 +0200 parsing arguments
+01:15:00
+
+Mon Apr 10 22:08:18 2017 +0200 extracting entries from log file
+Mon Apr 10 21:54:39 2017 +0200 comment for UwsgiLogEntry class
+Mon Apr 10 21:53:03 2017 +0200 comments for UwsgiLogEntry methods
+Mon Apr 10 21:48:10 2017 +0200 parsing entry values only if type is entry
+00:20:00
+
+Mon Apr 10 19:21:40 2017 +0200 parsing datetime
+Mon Apr 10 19:09:37 2017 +0200 extracting all necessary data from entries
+00:12:00
+
+Sun Apr 09 23:54:50 2017 +0200 renames 'line' to 'log'
+Sun Apr 09 23:50:43 2017 +0200 testing unknown type
+Sun Apr 09 23:49:27 2017 +0200 resolving log entry type
+Sun Apr 09 23:24:30 2017 +0200 first test
+00:30:00
+
+Sun Apr 09 22:35:04 2017 +0200 run.bat script fix
+Sun Apr 09 22:33:52 2017 +0200 tests and structure fix
+Sun Apr 09 22:30:17 2017 +0200 reorganization and tests setup
+00:05:00
+
+Sun Apr 09 21:46:05 2017 +0200 first - empty project structure
+00:01:00
