@@ -3,7 +3,16 @@ import os.path
 from datetime import datetime
 from uwsgi import getNextLogEntry, UwsgiLogEntry
 
+
 def getStatistics(logPath, startTime, endTime):
+    """
+    Returns statistics calculated from given log file path.
+    Calculated statistics:
+        - request count
+        - request per second count
+        - individual response codes count
+        - average response package size
+    """
     try:
         logFile = open(logPath, 'r')
         count = 0
@@ -40,13 +49,12 @@ def getStatistics(logPath, startTime, endTime):
 
         if (firstEntry is not None and lastEntry is not None):
             seconds = (lastEntry.date_time - firstEntry.date_time).seconds
-            seconds = seconds if seconds != 0 else 1
+            seconds = seconds if seconds > 0 else 1
     finally:
         logFile.close()
-        return (count,
-                float(count)/float(seconds),
-                response_codes,
+        return (count, float(count)/float(seconds), response_codes,
                 size_200/count_200/1024.0 if count_200 != 0 else 0)
+
 
 def parseTime(timeString):
     try:
@@ -55,6 +63,7 @@ def parseTime(timeString):
     except Exception:
         print("ERROR: Given date time format is invalid: {0}".format(timeString))
         return None
+
 
 def main():
     """
@@ -69,6 +78,7 @@ def main():
 
     args = parser.parse_args()
 
+    # validating arguments
     if not os.path.isfile(args.logPath):
         print("ERROR: Given file not found: {0}".format(args.logPath))
         return
@@ -85,6 +95,7 @@ def main():
         if endTime is None:
             return
 
+    # calculating statistics
     count, avr, codes, size = getStatistics(args.logPath, startTime, endTime)
     print("Zapytan: {0}".format(count))
     print("Zapytania/sec: {0:.1f}".format(avr))
